@@ -78,3 +78,19 @@ def get_images_from_video(video_path, output_folder, start_time=None, end_time=N
     cap.release()
     cv2.destroyAllWindows()
     print(f"[INFO] {saved_count} images extracted from {video_path}!")
+
+
+def cut_pictures_taken_from_program(image_folder):
+    """
+    截取程序截图中的图片
+    :return:
+    """
+    p0 = (1232, 97)
+    p1 = (1232 + 640, 97 + 480)
+    for file in os.listdir(image_folder):
+        try:
+            image = cv2.imread(os.path.join(image_folder, file))
+            image = image[p0[1]:p1[1], p0[0]:p1[0]]
+            cv2.imwrite(os.path.join(image_folder, f"{file}"), image)
+        except Exception as e:
+            pass
